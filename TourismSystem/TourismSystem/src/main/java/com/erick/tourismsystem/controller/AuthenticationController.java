@@ -28,7 +28,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 
-    @PostMapping("/companhia/registrar")
+    @PostMapping("/companhias/registrar")
     public ResponseEntity<?> signupCompany(@RequestBody SignupRequestDTO signupRequestDTO) {
 
         if(authService.presentByEmail(signupRequestDTO.email())) {
