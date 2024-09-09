@@ -17,15 +17,16 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    public static final String SECRET = "123456";
+    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D62516554468576D5A71347437"; // Chave de 256 bits
 
     private String createToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
-                .signWith(SignatureAlgorithm.HS256, getSignKey()).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .signWith(getSignKey(), SignatureAlgorithm.HS256) // Corrigido
+                .compact();
     }
 
     private Key getSignKey() {
@@ -40,9 +41,10 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parser()
+                .parserBuilder()
                 .setSigningKey(getSignKey())
-                .parseClaimsJwt(token)
+                .build()
+                .parseClaimsJws(token) // Corrigido para parseClaimsJws
                 .getBody();
     }
 
