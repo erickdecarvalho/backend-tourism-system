@@ -6,6 +6,7 @@ import com.erick.tourismsystem.entity.User;
 import com.erick.tourismsystem.enums.UserRole;
 import com.erick.tourismsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
         user.setLastname(signupRequestDTO.lastname());
         user.setEmail(signupRequestDTO.email());
         user.setPassword(signupRequestDTO.phone());
-        user.setPassword(signupRequestDTO.password());
+        user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.password()));
 
         user.setRole(UserRole.CLIENT);
 
@@ -40,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
         user.setName(signupRequestDTO.name());
         user.setEmail(signupRequestDTO.email());
         user.setPassword(signupRequestDTO.phone());
-        user.setPassword(signupRequestDTO.password());
+        user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.password()));
 
         user.setRole(UserRole.COMPANY);
 
