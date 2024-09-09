@@ -16,7 +16,7 @@ public class AuthenticationController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/clientes/cadastrar")
+    @PostMapping("/clientes/registrar")
     public ResponseEntity<?> signupClient(@RequestBody SignupRequestDTO signupRequestDTO) {
 
         if(authService.presentByEmail(signupRequestDTO.email())) {
@@ -28,7 +28,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 
-    @PostMapping("/companhia/cadastrar")
+    @PostMapping("/companhia/registrar")
     public ResponseEntity<?> signupCompany(@RequestBody SignupRequestDTO signupRequestDTO) {
 
         if(authService.presentByEmail(signupRequestDTO.email())) {
