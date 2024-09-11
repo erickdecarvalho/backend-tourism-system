@@ -5,6 +5,7 @@ import com.erick.tourismsystem.entity.Tourism;
 import com.erick.tourismsystem.repository.TourismRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public class ClienteServiceImpl implements ClientService{
         return tourismRepository.findAll().stream().map(Tourism::getTourismDto).collect(Collectors.toList());
     }
 
+    @Transactional
     public List<TourismDTO> searchTourismByName(String name) {
         return tourismRepository.findAllByServiceNameContaining(name).stream().map(Tourism::getTourismDto).collect(Collectors.toList());
     }
