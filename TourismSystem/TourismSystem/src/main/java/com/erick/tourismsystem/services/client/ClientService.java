@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ClientService {
     List<TourismDTO> getAllTourisms();
+    List<TourismDTO> searchTourismByName(String name);
 }
