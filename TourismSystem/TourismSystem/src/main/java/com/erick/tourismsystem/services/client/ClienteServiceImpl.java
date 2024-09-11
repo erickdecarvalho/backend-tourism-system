@@ -20,6 +20,6 @@ public class ClienteServiceImpl implements ClientService{
     }
 
     public List<TourismDTO> searchTourismByName(String name) {
-        return tourismRepository.findAllByTourismNameContaining(name).stream().map(Tourism::getTourismDto).collect(Collectors.toList());
+        return tourismRepository.findAllByServiceNameContaining(name).stream().map(Tourism::getTourismDto).collect(Collectors.toList());
     }
 }

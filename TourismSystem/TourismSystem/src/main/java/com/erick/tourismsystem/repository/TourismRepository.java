@@ -11,5 +11,5 @@ import java.util.List;
 public interface TourismRepository extends JpaRepository<Tourism, Long> {
 
     List<Tourism> findAllByUserId(Long userId);
-    List<Tourism> findAllByTourismNameContaining(String name);
+    List<Tourism> findAllByServiceNameContaining(String name);
 }
