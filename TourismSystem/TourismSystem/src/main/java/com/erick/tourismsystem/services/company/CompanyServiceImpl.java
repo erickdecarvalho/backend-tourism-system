@@ -47,4 +47,32 @@ public class CompanyServiceImpl implements CompanyService{
         return tourisms.stream().map(Tourism::getTourismDto).collect(Collectors.toList());
     }
 
+    public TourismDTO getTourismById(Long tourismId) {
+        Optional<Tourism> optionalTourism = tourismRepository.findById(tourismId);
+        if(optionalTourism.isPresent()) {
+            return optionalTourism.get().getTourismDto();
+        }
+
+        return null;
+    }
+
+    public boolean updateTourism(Long tourismId, TourismDTO tourismDTO) throws IOException {
+        Optional<Tourism> optionalTourism = tourismRepository.findById(tourismId);
+        if(optionalTourism.isPresent()) {
+            Tourism tourism = optionalTourism.get();
+
+            tourism.setServiceName(tourismDTO.getServiceName());
+            tourism.setDescription(tourismDTO.getDescription());
+            tourism.setPrice(tourismDTO.getPrice());
+
+            if(tourismDTO.getImg() != null) {
+                tourism.setImg(tourismDTO.getImg().getBytes());
+            }
+
+            tourismRepository.save(tourism);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

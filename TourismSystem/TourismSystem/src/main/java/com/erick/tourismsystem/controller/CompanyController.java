@@ -33,4 +33,25 @@ public class CompanyController {
         List<TourismDTO> turismos = companyService.getAllTourisms(userId);
         return ResponseEntity.ok(turismos);
     }
+
+    @GetMapping("/turismo/{tourismId}")
+    public ResponseEntity<?> getTourimById(@PathVariable Long tourismId) {
+        TourismDTO tourismDTO = companyService.getTourismById(tourismId);
+        if (tourismDTO != null) {
+            return ResponseEntity.ok(tourismDTO);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/turismo/{tourismId}")
+    public ResponseEntity<?> updateTourism(@PathVariable Long tourismId, @ModelAttribute TourismDTO tourismDTO) throws IOException {
+        boolean success = companyService.updateTourism(tourismId, tourismDTO);
+        if (success) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
