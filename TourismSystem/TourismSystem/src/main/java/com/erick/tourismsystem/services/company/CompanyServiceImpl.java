@@ -75,4 +75,14 @@ public class CompanyServiceImpl implements CompanyService{
             return false;
         }
     }
+
+    public boolean deleteTourism(Long tourismId) {
+        Optional<Tourism> optionalTourism = tourismRepository.findById(tourismId);
+        if(optionalTourism.isPresent()) {
+            tourismRepository.delete(optionalTourism.get());
+            return true;
+        }
+
+        return false;
+    }
 }

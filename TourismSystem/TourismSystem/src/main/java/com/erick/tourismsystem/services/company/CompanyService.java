@@ -10,4 +10,5 @@ public interface CompanyService {
     List<TourismDTO> getAllTourisms(Long userId);
     TourismDTO getTourismById(Long tourismId);
     boolean updateTourism(Long tourismId, TourismDTO tourismDTO) throws IOException;
+    boolean deleteTourism(Long tourismId);
 }

@@ -54,4 +54,15 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @DeleteMapping("/turismo/{tourismId}")
+    public ResponseEntity<?> deleteTourism(@PathVariable Long tourismId) {
+        boolean success = companyService.deleteTourism(tourismId);
+
+        if(success) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
