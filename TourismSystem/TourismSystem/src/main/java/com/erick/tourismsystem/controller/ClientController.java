@@ -26,6 +26,7 @@ public class ClientController {
 
     @PostMapping("/servicos-de-turismo")
     public ResponseEntity<?> tourismService(@RequestBody ReservationDTO reservationDTO) {
+        System.out.println(reservationDTO);
         boolean success = clientService.tourismService(reservationDTO);
         if (success) {
             return ResponseEntity.status(HttpStatus.OK).build();

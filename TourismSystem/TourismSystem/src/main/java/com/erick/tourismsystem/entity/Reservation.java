@@ -3,11 +3,13 @@ package com.erick.tourismsystem.entity;
 import com.erick.tourismsystem.dto.ReservationDTO;
 import com.erick.tourismsystem.enums.ReservationStatus;
 import com.erick.tourismsystem.enums.ReviewStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,7 +24,7 @@ public class Reservation {
 
     private ReviewStatus reviewStatus;
 
-    private Date tourismDate;
+    private LocalDate tourismDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

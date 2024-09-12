@@ -4,12 +4,13 @@ import com.erick.tourismsystem.enums.ReservationStatus;
 import com.erick.tourismsystem.enums.ReviewStatus;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 public class ReservationDTO {
     private Long id;
-    private Date tourismDate;
+    private LocalDate tourismDate;
     private String serviceName;
     private ReservationStatus reservationStatus;
     private ReviewStatus reviewStatus;

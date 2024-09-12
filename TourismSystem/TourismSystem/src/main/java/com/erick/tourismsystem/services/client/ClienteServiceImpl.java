@@ -41,6 +41,7 @@ public class ClienteServiceImpl implements ClientService{
     }
 
     public boolean tourismService(ReservationDTO reservationDTO) {
+        System.out.println("Data recebida do DTO: " + reservationDTO.getTourismDate()); // Verifique se a data não está nula
         Optional<Tourism> optionalTourism = tourismRepository.findById(reservationDTO.getTourismId());
         Optional<User> optionaluser = userRepository.findById(reservationDTO.getUserId());
 
