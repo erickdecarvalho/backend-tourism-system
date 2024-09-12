@@ -1,5 +1,6 @@
 package com.erick.tourismsystem.services.company;
 
+import com.erick.tourismsystem.dto.ReservationDTO;
 import com.erick.tourismsystem.dto.TourismDTO;
 
 import java.io.IOException;
@@ -11,4 +12,6 @@ public interface CompanyService {
     TourismDTO getTourismById(Long tourismId);
     boolean updateTourism(Long tourismId, TourismDTO tourismDTO) throws IOException;
     boolean deleteTourism(Long tourismId);
+    List<ReservationDTO> getAllTourismServices(Long companyId);
+    boolean changeServiceStatus(Long serviceId, String status);
 }

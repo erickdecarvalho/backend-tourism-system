@@ -1,5 +1,6 @@
 package com.erick.tourismsystem.controller;
 
+import com.erick.tourismsystem.dto.ReservationDTO;
 import com.erick.tourismsystem.dto.TourismDTO;
 import com.erick.tourismsystem.entity.Tourism;
 import com.erick.tourismsystem.services.company.CompanyService;
@@ -64,5 +65,17 @@ public class CompanyController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("/turismos/dash/{companyId}")
+    public ResponseEntity<List<ReservationDTO>> getAllTourismServices(@PathVariable Long companyId) {
+        return ResponseEntity.ok(companyService.getAllTourismServices(companyId));
+    }
+
+    @GetMapping("/turismo/{serviceId}/{status}")
+    public ResponseEntity<?> changeServiceStatus(@PathVariable Long serviceId, @PathVariable String status) {
+        boolean success = companyService.changeServiceStatus(serviceId, status);
+        if(success) return ResponseEntity.ok().build();
+        return ResponseEntity.notFound().build();
     }
 }

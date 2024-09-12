@@ -1,8 +1,12 @@
 package com.erick.tourismsystem.services.company;
 
+import com.erick.tourismsystem.dto.ReservationDTO;
 import com.erick.tourismsystem.dto.TourismDTO;
+import com.erick.tourismsystem.entity.Reservation;
 import com.erick.tourismsystem.entity.Tourism;
 import com.erick.tourismsystem.entity.User;
+import com.erick.tourismsystem.enums.ReservationStatus;
+import com.erick.tourismsystem.repository.ReservationRepository;
 import com.erick.tourismsystem.repository.TourismRepository;
 import com.erick.tourismsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,6 +27,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
     private TourismRepository tourismRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Override
     public boolean postTourism(Long userId, TourismDTO tourismDTO) throws IOException {
@@ -83,6 +91,27 @@ public class CompanyServiceImpl implements CompanyService{
             return true;
         }
 
+        return false;
+    }
+
+    @Transactional
+    public List<ReservationDTO> getAllTourismServices(Long companyId) {
+        return reservationRepository.findAllByCompanyId(companyId).stream().map(Reservation::getReservationDto).collect(Collectors.toList());
+    }
+
+    public boolean changeServiceStatus(Long serviceId, String status) {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(serviceId);
+        if(optionalReservation.isPresent()) {
+            Reservation existingReservation = optionalReservation.get();
+            if(Objects.equals(status, "Approve")) {
+                existingReservation.setReservationStatus(ReservationStatus.APPROVED);
+            } else {
+                existingReservation.setReservationStatus(ReservationStatus.REJECTED);
+            }
+
+            reservationRepository.save(existingReservation);
+            return true;
+        }
         return false;
     }
 }
