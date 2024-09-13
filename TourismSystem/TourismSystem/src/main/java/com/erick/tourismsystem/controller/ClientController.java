@@ -39,4 +39,9 @@ public class ClientController {
     public ResponseEntity<?> getTourismDetailsByTourismId(@PathVariable Long tourismId) {
         return ResponseEntity.ok(clientService.getTourismDetailsByTourismid(tourismId));
     }
+
+    @GetMapping("/meus-turismos/{userId}")
+    public ResponseEntity<?> getAllServicesByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(clientService.getAllServicesByUserId(userId));
+    }
 }

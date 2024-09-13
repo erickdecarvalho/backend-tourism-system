@@ -71,4 +71,9 @@ public class ClienteServiceImpl implements ClientService{
         }
         return tourismDetailsForClientDTO;
     }
+
+    @Transactional
+    public List<ReservationDTO> getAllServicesByUserId(Long userId) {
+        return reservationRepository.findAllByUserId(userId).stream().map(Reservation::getReservationDto).collect(Collectors.toList());
+    }
 }

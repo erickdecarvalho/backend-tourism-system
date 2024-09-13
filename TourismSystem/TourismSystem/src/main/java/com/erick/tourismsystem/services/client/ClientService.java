@@ -11,5 +11,6 @@ public interface ClientService {
     List<TourismDTO> searchTourismByName(String name);
     boolean tourismService(ReservationDTO reservationDTO);
     TourismDetailsForClientDTO getTourismDetailsByTourismid(Long tourismId);
+    List<ReservationDTO> getAllServicesByUserId(Long userId);
 }
 
