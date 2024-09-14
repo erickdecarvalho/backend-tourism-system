@@ -1,6 +1,7 @@
 package com.erick.tourismsystem.controller;
 
 import com.erick.tourismsystem.dto.ReservationDTO;
+import com.erick.tourismsystem.dto.ReviewDTO;
 import com.erick.tourismsystem.services.client.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,15 @@ public class ClientController {
     @GetMapping("/meus-turismos/{userId}")
     public ResponseEntity<?> getAllServicesByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(clientService.getAllServicesByUserId(userId));
+    }
+
+    @PostMapping("/resenha")
+    public ResponseEntity<?> giveReview(@RequestBody ReviewDTO reviewDTO) {
+        Boolean success = clientService.giveReview(reviewDTO);
+        if(success) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
