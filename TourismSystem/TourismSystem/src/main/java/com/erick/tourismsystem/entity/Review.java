@@ -1,5 +1,6 @@
 package com.erick.tourismsystem.entity;
 
+import com.erick.tourismsystem.dto.ReviewDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -31,4 +32,19 @@ public class Review {
     @JoinColumn(name = "tourism_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Tourism tourism;
+
+    public ReviewDTO getDto() {
+        ReviewDTO reviewDTO = new ReviewDTO();
+
+        reviewDTO.setId(id);
+        reviewDTO.setReview(review);
+        reviewDTO.setRating(rating);
+        reviewDTO.setReviewDate(reviewDate);
+        reviewDTO.setUserId(user.getId());
+        reviewDTO.setClientName(user.getName());
+        reviewDTO.setTourismId(tourism.getId());
+        reviewDTO.setServiceName(tourism.getServiceName());
+
+        return reviewDTO;
+    }
 }

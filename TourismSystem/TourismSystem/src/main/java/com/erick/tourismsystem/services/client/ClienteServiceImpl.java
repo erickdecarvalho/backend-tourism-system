@@ -44,11 +44,13 @@ public class ClienteServiceImpl implements ClientService{
 
     @Transactional
     public List<TourismDTO> searchTourismByName(String name) {
-        return tourismRepository.findAllByServiceNameContaining(name).stream().map(Tourism::getTourismDto).collect(Collectors.toList());
+        return tourismRepository.findAllByServiceNameContainingIgnoreCase(name)
+                .stream()
+                .map(Tourism::getTourismDto)
+                .collect(Collectors.toList());
     }
 
     public boolean tourismService(ReservationDTO reservationDTO) {
-        System.out.println("Data recebida do DTO: " + reservationDTO.getTourismDate()); // Verifique se a data não está nula
         Optional<Tourism> optionalTourism = tourismRepository.findById(reservationDTO.getTourismId());
         Optional<User> optionaluser = userRepository.findById(reservationDTO.getUserId());
 
@@ -75,6 +77,9 @@ public class ClienteServiceImpl implements ClientService{
         TourismDetailsForClientDTO tourismDetailsForClientDTO = new TourismDetailsForClientDTO();
         if(optionalTourism.isPresent()) {
             tourismDetailsForClientDTO.setTourismDTO(optionalTourism.get().getTourismDto());
+
+            List<Review> reviewList = reviewRepository.findAllByTourismId(tourismId);
+            tourismDetailsForClientDTO.setReviewDTOList(reviewList.stream().map(Review::getDto).collect(Collectors.toList()));
         }
         return tourismDetailsForClientDTO;
     }
